@@ -82,7 +82,7 @@ async function bonusAbility(player, monster) {
   // 3. 방어력 증가 = 방어력 3% 증가
 
 
-  console.log('\n'.repeat(lines*0.15));
+  console.log('\n'.repeat(15));
   const line = chalk.magentaBright('='.repeat(cols));
   console.log(line);
 
@@ -100,14 +100,14 @@ async function bonusAbility(player, monster) {
 
   const bonusList = `| 1. 체력 (${monster.maxAtt * 5}만큼 회복) | 2. 공격력 (${Math.floor(player.maxAtt * 0.3)}만큼 증가) | 3.방어력 3 증가) |`;
   chalk.yellow(console.log(
-    ' '.repeat((cols*85 - bonusList.length) / 2) + bonusList
+    ' '.repeat((cols*0.85 - bonusList.length) / 2) + bonusList
   ));
   console.log(chalk.magentaBright('='.repeat(cols)) + '\n');
 
 
 
   async function inputBonus(player, monster) {
-    const choice = readlineSync.question('당신의 선택은?');
+    const choice = readlineSync.question(' ► 당신의 선택은?');
 
 
     switch (choice) {
