@@ -8,31 +8,26 @@ import { execSync } from 'child_process';
 import { option } from "./option.js";
 import { wait } from "./game.js";
 import { achieveInfo } from './achieve.js';
-export const cols = process.stdout.columns;
-export const lines = process.stdout.rows;
+export let cols = process.stdout.columns;
+export let lines = process.stdout.rows;
 
 
 async function Initial() {
-    const platform = os.platform;
+    const platform = os.platform();
 
     if (platform === 'win32') {
         // 최초 창크기 설정
         execSync(`mode con: cols=100 lines=50`);
         // 인코딩 방식 설정
         execSync('chcp 65001').toString();
-    } else if(platform === 'darwin') {
+    } else{
         console.log("\n\n\n 윈도우 환경에 호환되는 프로그램입니다.");
         console.log("맥의 경우 정상 동작하지 않을 수 있습니다.");
         console.log("본 프로그램은 100 X 50 환경에 최적화 되어있습니다.");
+        await wait(3000);
         exec(`osascript ./resize.applescript`);
-        wait(3000);
-    }else{
-        console.log("\n\n\n 윈도우 환경에 호환되는 프로그램입니다.");
-        console.log("타 운영체제의 경우 동작하지 않을 수 있습니다.");
-        console.log("본 프로그램은 100 X 50 환경에 최적화 되어있습니다.");
-        execSync(`mode con: cols=100 lines=50`);
-        exec(`osascript ./resize.applescript`);
-        wait(3000);
+        cols = process.stdout.columns;
+        console.clear();
     }
 }
 
@@ -112,7 +107,7 @@ async function handleUserInput() {
 
 // 게임 시작 함수
 export async function start() {
-    Initial();
+    await Initial();
     while (true) {
         displayLobby();
         await handleUserInput();
