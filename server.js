@@ -8,8 +8,8 @@ import { execSync } from 'child_process';
 import { option } from "./option.js";
 import { wait } from "./game.js";
 import { achieveInfo } from './achieve.js';
-export let cols = process.stdout.columns;
-export let lines = process.stdout.rows;
+export let cols = 100;
+export let lines = 50;
 
 
 async function Initial() {
@@ -26,7 +26,7 @@ async function Initial() {
         console.log("본 프로그램은 100 X 50 환경에 최적화 되어있습니다.");
         await wait(3000);
         exec(`osascript ./resize.applescript`);
-        cols = process.stdout.columns;
+        
         console.clear();
     }
 }
