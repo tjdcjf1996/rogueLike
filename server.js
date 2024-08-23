@@ -61,13 +61,13 @@ async function displayLobby() {
     console.log(line);
 
     // 옵션들
-    console.log(' '.repeat(39) + chalk.cyan.bold('1.') + chalk.white(' 새로운 게임 시작'));
+    console.log(' '.repeat(cols*0.39) + chalk.cyan.bold('1.') + chalk.white(' 새로운 게임 시작'));
     console.log(line2);
-    console.log(' '.repeat(41) +chalk.cyan.bold('2.') + chalk.white(' 업적 확인하기'));
+    console.log(' '.repeat(cols*0.41) +chalk.cyan.bold('2.') + chalk.white(' 업적 확인하기'));
     console.log(line2);
-    console.log(' '.repeat(43) +chalk.cyan.bold('3.') + chalk.white(' 난이도설정'));
+    console.log(' '.repeat(cols*0.43) +chalk.cyan.bold('3.') + chalk.white(' 난이도설정'));
     console.log(line2);
-    console.log(' '.repeat(46) +chalk.cyan.bold('4.') + chalk.white(' 종료'));
+    console.log(' '.repeat(cols*0.46) +chalk.cyan.bold('4.') + chalk.white(' 종료'));
 
     // 하단 경계선
     console.log(line);
