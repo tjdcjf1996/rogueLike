@@ -1,10 +1,8 @@
 import chalk from 'chalk';
 import figlet from 'figlet';
 import readlineSync from 'readline-sync';
-import {execSync} from 'child_process';
+import { level } from "./data.js";
 
-let optional = '07';
-let optionalStr = (optional === '07') ? "ON" : "OFF" ;
 
 
 function displayOption() {
@@ -13,7 +11,7 @@ function displayOption() {
     // 타이틀 텍스트
     console.log(
         chalk.cyan(
-            figlet.textSync('RL- Javascript', {
+            figlet.textSync(' '.repeat(22) + 'Level Setting', {
                 font: 'Standard',
                 horizontalLayout: 'default',
                 verticalLayout: 'default'
@@ -22,48 +20,58 @@ function displayOption() {
     );
 
     // 상단 경계선
-    const line = chalk.magentaBright('='.repeat(50));
+    const line = chalk.white('='.repeat(100));
+    
+    const levelText = `현재 난이도는 ${level.kor()} 입니다.`;
     console.log(line);
 
-    // 설명 텍스트
-    console.log(chalk.green('변경할 옵션을 선택해주세요.'));
-    console.log();
+    // 난이도 표시
+    
+    console.log(chalk.green('\n'+ ' '.repeat((90-levelText.length)/2) +'변경할 난이도를 선택해주세요'+'\n'));
+    console.log(line);
 
+    console.log(chalk.yellow('\n\n'+ ' '.repeat((92-levelText.length)/2) +levelText+'\n\n'));
+    console.log(line);
     // 옵션들
-    console.log(chalk.blue('1.') + chalk.white(` 다크모드 적용 : ${optionalStr}`));
-    console.log(chalk.blue('2.') + chalk.white(' 돌아가기'));
+    console.log(`\n`+' '.repeat(48) +chalk.blue('1.') + chalk.white(`하급`));
+    console.log(' '.repeat(48) +chalk.blue('2.') + chalk.white(`중급`));
+    console.log(' '.repeat(48) +chalk.blue('3.') + chalk.white(`상급`));
+    console.log(' '.repeat(46) +chalk.blue('4.') + chalk.white(' 돌아가기')+'\n');
 
     // 하단 경계선
-    console.log(line);
+    console.log(line,'\n');
 
     // 하단 설명
-    console.log(chalk.gray('1-2 사이의 수를 입력한 뒤 엔터를 누르세요.'));
+    console.log(chalk.gray('1-4 사이의 수를 입력한 뒤 엔터를 누르세요.\n'));
 }
 
 // 유저 입력을 받아 처리하는 함수
 function optionInput() {
-    const choice = readlineSync.question('입력: ');
+    const choice = readlineSync.question(' ► 입력: ');
 
     switch (choice) {
         case '1':
-            if(optional === '07'){
-                execSync('color 70');
-                optionalStr = '70';
-            }
-                execSync('color 07');
-                optionalStr = '07';
-            
-            // option();
+            level.cur = 1;
+            option();
             break;
         case '2':
-            break;1
+            level.cur = 2;
+            option();
+            break;
+        case '3':
+            level.cur = 3;
+            option();
+            break; 
+        case '4':
+            break; 
         default:
             console.log(chalk.red('올바른 선택을 하세요.'));
-            optionInput(); // 유효하지 않은 입력일 경우 다시 입력 받음
+            option(); // 유효하지 않은 입력일 경우 다시 입력 받음
+            break;
     }
 }
 
-export function option(){
+export function option() {
     displayOption();
     optionInput();
 }

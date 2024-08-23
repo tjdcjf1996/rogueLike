@@ -1,15 +1,15 @@
 import chalk from 'chalk';
 import figlet from 'figlet';
 import readlineSync from 'readline-sync';
-import {startGame} from "./game.js";
-import {execSync} from 'child_process';
-import {option} from "./option.js";
-import {stageLogArr} from "./data.js";
-import {wait} from "./game.js";
+import { startGame } from "./game.js";
+import { execSync } from 'child_process';
+import { option } from "./option.js";
+import { wait } from "./game.js";
 import { achieveInfo } from './achieve.js';
 
 
-  
+
+
 
 
 async function Initial() {
@@ -31,32 +31,37 @@ async function displayLobby() {
     console.clear();
 
     // 타이틀 텍스트
-    console.log(
+    console.log('\n'.repeat(10) +
         chalk.cyan(
             figlet.textSync(' '.repeat(25) + 'RogueLike', {
                 font: 'Standard',
                 horizontalLayout: 'default',
                 verticalLayout: 'default'
             })
-        )
+        ) + '\n'.repeat(10)
     );
 
     // 상단 경계선
-    const line = chalk.magentaBright('='.repeat(100));
+    const line = chalk.rgb(255, 53, 51)('━'.repeat(100));
+    const line2 = chalk.grey('-'.repeat(100));
     console.log(line);
 
     // 게임 이름
-    console.log(chalk.yellowBright.bold(' '.repeat(33) +'CLI 게임에 오신것을 환영합니다!'));
+    console.log(chalk.yellowBright.bold(' '.repeat(35) + 'CLI 게임에 오신것을 환영합니다!'));
 
     // 설명 텍스트
-    console.log(chalk.green(' '.repeat(38) +'옵션을 선택해주세요.'));
+    console.log(chalk.rgb(255, 53, 51)(' '.repeat(40) + '옵션을 선택해주세요.'));
     console.log();
+    console.log(line);
 
     // 옵션들
-    console.log(chalk.blue('1.') + chalk.white(' 새로운 게임 시작'));
-    console.log(chalk.blue('2.') + chalk.white(' 업적 확인하기'));
-    console.log(chalk.blue('3.') + chalk.white(' 옵션'));
-    console.log(chalk.blue('4.') + chalk.white(' 종료'));
+    console.log(' '.repeat(39) + chalk.cyan.bold('1.') + chalk.white(' 새로운 게임 시작'));
+    console.log(line2);
+    console.log(' '.repeat(41) +chalk.cyan.bold('2.') + chalk.white(' 업적 확인하기'));
+    console.log(line2);
+    console.log(' '.repeat(43) +chalk.cyan.bold('3.') + chalk.white(' 난이도설정'));
+    console.log(line2);
+    console.log(' '.repeat(46) +chalk.cyan.bold('4.') + chalk.white(' 종료'));
 
     // 하단 경계선
     console.log(line);
@@ -67,7 +72,7 @@ async function displayLobby() {
 
 // 유저 입력을 받아 처리하는 함수
 async function handleUserInput() {
-    const choice = readlineSync.question('입력: ');
+    const choice = readlineSync.question(' ► 입력: ');
 
     switch (choice) {
         case '1':
@@ -96,18 +101,18 @@ async function handleUserInput() {
 
 // 게임 시작 함수
 export async function start() {
-    
-    while(true){
-    
-    Initial();
-    displayLobby();
-    await handleUserInput();
+
+    while (true) {
+
+        Initial();
+        displayLobby();
+        await handleUserInput();
     }
-    
-    
+
+
 }
 
 // 게임 실행
 
 
-    start();
+start();
