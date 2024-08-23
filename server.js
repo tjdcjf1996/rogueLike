@@ -1,26 +1,37 @@
+import os from 'os';
 import chalk from 'chalk';
 import figlet from 'figlet';
 import readlineSync from 'readline-sync';
 import { startGame } from "./game.js";
+import { exec } from 'child_process';
 import { execSync } from 'child_process';
 import { option } from "./option.js";
 import { wait } from "./game.js";
 import { achieveInfo } from './achieve.js';
-
-
-
-
+export const cols = process.stdout.columns;
+export const lines = process.stdout.rows;
 
 
 async function Initial() {
-    if (process.platform === "win32") {
+    const platform = os.platform;
+
+    if (platform === 'win32') {
         // 최초 창크기 설정
         execSync(`mode con: cols=100 lines=50`);
         // 인코딩 방식 설정
         execSync('chcp 65001').toString();
-    } else {
-        console.log("윈도우 환경에 호환되는 프로그램입니다.");
-        console.log("타 운영체제의 경우 동작하지 않을 수 있습니다.")
+    } else if(platform === 'darwin') {
+        console.log("\n\n\n 윈도우 환경에 호환되는 프로그램입니다.");
+        console.log("맥의 경우 정상 동작하지 않을 수 있습니다.");
+        console.log("본 프로그램은 100 X 50 환경에 최적화 되어있습니다.");
+        exec(`osascript ./resize.applescript`);
+        wait(3000);
+    }else{
+        console.log("\n\n\n 윈도우 환경에 호환되는 프로그램입니다.");
+        console.log("타 운영체제의 경우 동작하지 않을 수 있습니다.");
+        console.log("본 프로그램은 100 X 50 환경에 최적화 되어있습니다.");
+        execSync(`mode con: cols=100 lines=50`);
+        exec(`osascript ./resize.applescript`);
         wait(3000);
     }
 }
@@ -33,7 +44,7 @@ async function displayLobby() {
     // 타이틀 텍스트
     console.log('\n'.repeat(10) +
         chalk.cyan(
-            figlet.textSync(' '.repeat(25) + 'RogueLike', {
+            figlet.textSync(' '.repeat(cols/4) + 'RogueLike', {
                 font: 'Standard',
                 horizontalLayout: 'default',
                 verticalLayout: 'default'
@@ -42,15 +53,15 @@ async function displayLobby() {
     );
 
     // 상단 경계선
-    const line = chalk.rgb(255, 53, 51)('━'.repeat(100));
-    const line2 = chalk.grey('-'.repeat(100));
+    const line = chalk.rgb(255, 53, 51)('━'.repeat(cols));
+    const line2 = chalk.grey('-'.repeat(cols));
     console.log(line);
 
     // 게임 이름
-    console.log(chalk.yellowBright.bold(' '.repeat(35) + 'CLI 게임에 오신것을 환영합니다!'));
+    console.log(chalk.yellowBright.bold(' '.repeat(cols*0.35) + 'CLI 게임에 오신것을 환영합니다!'));
 
     // 설명 텍스트
-    console.log(chalk.rgb(255, 53, 51)(' '.repeat(40) + '옵션을 선택해주세요.'));
+    console.log(chalk.rgb(255, 53, 51)(' '.repeat(cols*0.4) + '옵션을 선택해주세요.'));
     console.log();
     console.log(line);
 
@@ -101,10 +112,8 @@ async function handleUserInput() {
 
 // 게임 시작 함수
 export async function start() {
-
+    Initial();
     while (true) {
-
-        Initial();
         displayLobby();
         await handleUserInput();
     }

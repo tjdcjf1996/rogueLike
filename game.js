@@ -3,6 +3,7 @@ import figlet from 'figlet';
 import readlineSync from 'readline-sync';
 import { stageLogArr } from "./data.js";
 import { level } from "./data.js";
+import {cols,lines} from "./server.js"
 
 //---------------------------------------------------------------------------------------------------------------------------- wait 함수 선언
 export const wait = (delay) => new Promise((res) => setTimeout(res, delay));
@@ -81,13 +82,13 @@ async function bonusAbility(player, monster) {
   // 3. 방어력 증가 = 방어력 3% 증가
 
 
-  console.log('\n'.repeat(15));
-  const line = chalk.magentaBright('='.repeat(100));
+  console.log('\n'.repeat(cols*0.15));
+  const line = chalk.magentaBright('='.repeat(cols));
   console.log(line);
 
   console.log(
     chalk.cyan(
-      figlet.textSync(' '.repeat(20) + 'Bonus Track !!', {
+      figlet.textSync(' '.repeat(cols*0.2) + 'Bonus Track !!', {
         font: 'Standard',
         horizontalLayout: 'default',
         verticalLayout: 'default'
@@ -95,13 +96,13 @@ async function bonusAbility(player, monster) {
     )
   );
 
-  console.log(chalk.magentaBright('='.repeat(100)));
+  console.log(chalk.magentaBright('='.repeat(cols)));
 
   const bonusList = `| 1. 체력 (${monster.maxAtt * 5}만큼 회복) | 2. 공격력 (${Math.floor(player.maxAtt * 0.3)}만큼 증가) | 3.방어력 3 증가) |`;
   chalk.yellow(console.log(
-    ' '.repeat((85 - bonusList.length) / 2) + bonusList
+    ' '.repeat((cols*85 - bonusList.length) / 2) + bonusList
   ));
-  console.log(chalk.magentaBright('='.repeat(100)) + '\n');
+  console.log(chalk.magentaBright('='.repeat(cols)) + '\n');
 
 
 
@@ -147,7 +148,7 @@ async function bonusAbility(player, monster) {
 
 //---------------------------------------------------------------------------------------------------------------------------- displayStatus 함수 선언
 async function displayStatus(stage, player, monster) {
-  console.log(chalk.rgb(255, 53, 51)(`\n` + ('=').repeat(43) + `Current Status` + ('=').repeat(43) + '\n'));
+  console.log(chalk.rgb(255, 53, 51)(`\n` + ('=').repeat(cols*0.43) + `Current Status` + ('=').repeat(cols*0.43) + '\n'));
 
   const infoPlayer = `| 플레이어 정보 : 체력 - ${player.hp} | 공격력 - ${player.minAtt}~${player.maxAtt} | 방어력 - ${player.defense}%`;
   const infoMonster = `| 몬스터 정보 : hp - ${monster.hp} | 공격력 - ${monster.minAtt}~${monster.maxAtt} | 방어력 - ${monster.defense}%`;
@@ -160,7 +161,7 @@ async function displayStatus(stage, player, monster) {
       (' ').repeat((90 - infoMonster.length) / 2) + infoMonster + '\n'
     ),
   );
-  console.log(chalk.rgb(255, 53, 51)(('=').repeat(100) + `\n`));
+  console.log(chalk.rgb(255, 53, 51)(('=').repeat(cols) + `\n`));
 }
 //---------------------------------------------------------------------------------------------------------------------------- displayStatus 함수 선언 끝
 
@@ -181,14 +182,14 @@ const battle = async (stage, player, monster, bonusNum, reg) => {
       bonusNum = 0;
     }
     await displayStatus(stage, player, monster);
-    console.log(' '.repeat(35) + `두둥탁. 몬스터가 등장했어요!` + '\n\n' + '='.repeat(45) + 'Log Screen' + '='.repeat(45));
+    console.log(' '.repeat(cols*0.35) + `두둥탁. 몬스터가 등장했어요!` + '\n\n' + '='.repeat(cols*0.45) + 'Log Screen' + '='.repeat(cols*0.45));
 
     logs.forEach((log) => console.log(log));
-    console.log('='.repeat(100));
+    console.log('='.repeat(cols));
 
     console.log(
       chalk.green(
-        `\n` + ' '.repeat(6) + `| 1. 공격한다 | 2. 연속공격(10% 확률) | 3.기도메타(5% 확률 / 잔여:${prey}회) | 4. 게임포기 | \n\n`,
+        `\n` + ' '.repeat(cols*0.06) + `| 1. 공격한다 | 2. 연속공격(10% 확률) | 3.기도메타(5% 확률 / 잔여:${prey}회) | 4. 게임포기 | \n\n`,
       ),
     );
 

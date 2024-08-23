@@ -2,6 +2,7 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import readlineSync from 'readline-sync';
 import { level } from "./data.js";
+import {cols,lines} from "./server.js"
 
 
 
@@ -11,7 +12,7 @@ function displayOption() {
     // 타이틀 텍스트
     console.log(
         chalk.cyan(
-            figlet.textSync(' '.repeat(22) + 'Level Setting', {
+            figlet.textSync(' '.repeat(cols*0.22) + 'Level Setting', {
                 font: 'Standard',
                 horizontalLayout: 'default',
                 verticalLayout: 'default'
@@ -20,23 +21,23 @@ function displayOption() {
     );
 
     // 상단 경계선
-    const line = chalk.white('='.repeat(100));
+    const line = chalk.white('='.repeat(cols));
     
     const levelText = `현재 난이도는 ${level.kor()} 입니다.`;
     console.log(line);
 
     // 난이도 표시
     
-    console.log(chalk.green('\n'+ ' '.repeat((90-levelText.length)/2) +'변경할 난이도를 선택해주세요'+'\n'));
+    console.log(chalk.green('\n'+ ' '.repeat((cols*0.9-levelText.length)/2) +'변경할 난이도를 선택해주세요'+'\n'));
     console.log(line);
 
-    console.log(chalk.yellow('\n\n'+ ' '.repeat((92-levelText.length)/2) +levelText+'\n\n'));
+    console.log(chalk.yellow('\n\n'+ ' '.repeat((cols*0.92-levelText.length)/2) +levelText+'\n\n'));
     console.log(line);
     // 옵션들
-    console.log(`\n`+' '.repeat(48) +chalk.blue('1.') + chalk.white(`하급`));
-    console.log(' '.repeat(48) +chalk.blue('2.') + chalk.white(`중급`));
-    console.log(' '.repeat(48) +chalk.blue('3.') + chalk.white(`상급`));
-    console.log(' '.repeat(46) +chalk.blue('4.') + chalk.white(' 돌아가기')+'\n');
+    console.log(`\n`+' '.repeat(cols*0.48) +chalk.blue('1.') + chalk.white(`하급`));
+    console.log(' '.repeat(cols*0.48) +chalk.blue('2.') + chalk.white(`중급`));
+    console.log(' '.repeat(cols*0.48) +chalk.blue('3.') + chalk.white(`상급`));
+    console.log(' '.repeat(cols*0.46) +chalk.blue('4.') + chalk.white(' 돌아가기')+'\n');
 
     // 하단 경계선
     console.log(line,'\n');

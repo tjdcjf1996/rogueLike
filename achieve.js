@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import readlineSync from 'readline-sync';
 import { stageLogArr } from "./data.js";
-import { wait } from './game.js';
+import {cols,lines} from "./server.js"
 
 async function arrPrint() {
     console.clear();
@@ -10,7 +10,7 @@ async function arrPrint() {
     // 타이틀 텍스트
     console.log(
         chalk.cyan(
-            figlet.textSync(' '.repeat(15) + 'Achievements', {
+            figlet.textSync(' '.repeat(cols*0.15) + 'Achievements', {
                 font: 'Standard',
                 horizontalLayout: 'default',
                 verticalLayout: 'default'
@@ -19,23 +19,23 @@ async function arrPrint() {
     );
 
     // 상단 경계선
-    const line = chalk.white('='.repeat(100));
+    const line = chalk.white('='.repeat(cols));
     console.log(line);
 
     
-    console.log(' '.repeat(35) + chalk.yellowBright.bold('지금까지 깨신 기록입니다!'));
+    console.log(' '.repeat(cols*0.35) + chalk.yellowBright.bold('지금까지 깨신 기록입니다!'));
 
     // 설명 텍스트
-    console.log(chalk.green(' '.repeat(34) + '기록은 10개까지 저장됩니다!'));
+    console.log(chalk.green(' '.repeat(cols*0.34) + '기록은 10개까지 저장됩니다!'));
     console.log(line);
 
     // 옵션들
     if (stageLogArr.length > 0) {
         stageLogArr.forEach((stage, i) => {
-            console.log(' '.repeat(25) + `${i + 1}번째 기록은 ${stage[0]}모드에서  ${stage[1]} 스테이지까지 깨셨네요!`);
+            console.log(' '.repeat(cols*0.25) + `${i + 1}번째 기록은 ${stage[0]}모드에서  ${stage[1]} 스테이지까지 깨셨네요!`);
         });
     } else {
-        console.log(' '.repeat(35) + '깨신 기록이 없어요 ㅠ..ㅠ');
+        console.log(' '.repeat(cols*0.35) + '깨신 기록이 없어요 ㅠ..ㅠ');
     }
 
 
