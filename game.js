@@ -82,7 +82,7 @@ async function bonusAbility(player, monster) {
   // 3. 방어력 증가 = 방어력 3% 증가
 
 
-  console.log('\n'.repeat(cols*0.15));
+  console.log('\n'.repeat(lines*0.15));
   const line = chalk.magentaBright('='.repeat(cols));
   console.log(line);
 
